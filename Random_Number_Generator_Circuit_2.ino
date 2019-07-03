@@ -24,10 +24,19 @@
  */
 const int firstLedPin = 8;
 const int lastLedPin = 13;
-
 const int BUTTON = 7;
 
+const int showOperatorTime = 1000; // default: 1000
+const int showNumberTime = 1000; // default: 1000
+const int doNothingTime = 500; // default: 500
+const int givenWaitTime = 75; // default: 75
+
+int result = 0;
+boolean isPlus = true;
+boolean wasInLoop = false;
+
 void setup() {
+  Serial.begin(9600);
   for(int currentPin = firstLedPin; currentPin <= lastLedPin; currentPin++) {
     pinMode(currentPin, OUTPUT);
   }
@@ -39,9 +48,10 @@ void setup() {
 void loop()
 {
   if (digitalRead(BUTTON) == HIGH) {
+    result = 0;
 
     giveTime();
-    showRandomNumber();
+    result = showRandomNumber();
     giveTime();
     showRandomOperator();
     giveTime();
@@ -53,52 +63,119 @@ void loop()
     giveTime();
     giveTime();
     giveTime();
-    
+    turnOffLeds();
+    Serial.print(" = ");
+    Serial.println(result);
+    delay(1000);
+    showResult();
     turnOffLeds();
   }
+}
 
+void showResult() {
+  if (result >= 0) {
+    showGreen(1000); // showOperatorTime
+  } else {
+    showRed(1000); // showOperatorTime
+    result *= -1; // Negative Zahl positiv machen
+  }
+  
+  while (result > 6) {
+    if (!wasInLoop) {
+      delay(1000);
+    }
+    wasInLoop = true;
+     for(int currentPin = firstLedPin; currentPin <= lastLedPin; currentPin++) {
+        digitalWrite(currentPin, HIGH);
+    }
+    result -= 6;
+    delay(1000); // showNumberTime
+    turnOffLeds();
+    delay(1000); // doNothingTime
+  }
+  if (!wasInLoop) {
+    delay(1000);
+  } else {
+    wasInLoop = false;
+  }
+  for (int currentPin = firstLedPin; currentPin <= (result + firstLedPin) - 1; currentPin++) {
+    digitalWrite(currentPin, HIGH);
+  }
+  delay(1000);
 }
 
 void showRandomOperator() {
-  int randomNumber = random(1, 3);
+  int randomNumber = random(0, 2);
+  //Serial.println(randomNumber);
   if (randomNumber == 1) {
-    for (int currentPin = lastLedPin - 1; currentPin <= lastLedPin; currentPin++) {
-      digitalWrite(currentPin, HIGH);
-    }
+    isPlus = true;
+    showGreen(showOperatorTime);
   } else {
-    for (int currentPin = firstLedPin; currentPin <= firstLedPin + 1; currentPin++) {
-      digitalWrite(currentPin, HIGH);
-    }
+    isPlus = false;
+    showRed(showOperatorTime);
   }
-  delay(1000);
   turnOffLeds();
-  delay(500);
+  delay(doNothingTime);
+
+  
+  if (randomNumber == 1) {
+    Serial.print(" + ");
+  } else {
+    Serial.print(" - ");
+  }
+  
 }
 
-void showRandomNumber() {
+
+
+int showRandomNumber() {
       int randomNumber = random(firstLedPin, lastLedPin + 1);
       for (int currentPin = firstLedPin; currentPin <= randomNumber; currentPin++) {
       digitalWrite(currentPin, HIGH);
     }
-    delay(1000);
+    delay(showNumberTime);
           for (int currentPin = firstLedPin; currentPin <= randomNumber; currentPin++) {
       digitalWrite(currentPin, LOW);
     }
     turnOffLeds();
-    delay(500);
+    delay(doNothingTime);
+    
+    Serial.print((randomNumber - firstLedPin) + 1);
+    if (isPlus) {
+      result += (randomNumber - firstLedPin) + 1;
+    } else {
+      result -= (randomNumber - firstLedPin) + 1;
+    }
+    return (randomNumber - firstLedPin) + 1;
 }
 
 void giveTime() {
       for (int i = 0; i < 1; i++) {
       for(int currentPin = firstLedPin; currentPin <= lastLedPin; currentPin++) {
         digitalWrite(currentPin, HIGH);
-        delay(75);
+        delay(givenWaitTime);
       }
       for(int currentPin = firstLedPin; currentPin <= lastLedPin; currentPin++) {
         digitalWrite(currentPin, LOW);
-        delay(75);
+        delay(givenWaitTime);
       }
     }
+}
+
+void showGreen(int waitTime) {
+      for (int currentPin = lastLedPin - 1; currentPin <= lastLedPin; currentPin++) {
+      digitalWrite(currentPin, HIGH);
+    }
+    delay(waitTime);
+    turnOffLeds();
+}
+
+void showRed(int waitTime) {
+      for (int currentPin = firstLedPin; currentPin <= firstLedPin + 1; currentPin++) {
+      digitalWrite(currentPin, HIGH);
+    }
+    delay(waitTime);
+    turnOffLeds();
 }
 
 void turnOffLeds() {
