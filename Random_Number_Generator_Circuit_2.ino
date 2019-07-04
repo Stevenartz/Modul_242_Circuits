@@ -10,13 +10,13 @@
 
    Diese Schaltung wurde frei erfunden.
 
-   Diese Schaltung repräsentiert ein Mathe-Spiel.
+   Diese Schaltung repräsentiert ein Mathe-Training.
    Das Breadboard ist im Hochformat anzusehen und der Knopf befindet sich unten.
-   Es gibt jeweils zwei Spieler die gegeneinander im Kopfrechnen antreten.
-   Wurde der Knopf gedrückt so wird durch ein wellenartiges aufblinken der LED's den beiden Spielern Zeit gewährt.
-   Als nächstes erscheint eine Zahl (von unten nach oben) beide müssen sich die Zahl merken.
+   Es gibt ein Spieler, der Kopfrechnen darf.
+   Wurde der Knopf gedrückt so wird durch ein wellenartiges aufblinken der LED's dem Spieler Zeit gewährt.
+   Dies passiert nach jedem Operator oder nach jeder Zahl.
+   Als nächstes erscheint eine Zahl (von unten nach oben) die sich der Spieler merken muss.
    Danach folgt ein Operator, entweder leuchten beide grünen LED's auf (+) oder beide roten (-).
-   Dann bekommen beide Spieler wieder Zeit.
    Es erscheint eine weitere Zahl, die dann zur vorherigen Zahl addiert oder subtrahiert werden soll.
    Darauffolgend erscheint wieder ein Opertaor und eine Zahl.
 
