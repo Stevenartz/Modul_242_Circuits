@@ -11,7 +11,7 @@
    Diese Schaltung wurde frei erfunden.
 
    Diese Schaltung repräsentiert ein Mathe-Spiel.
-   Das Breadboard ist im Hochformat anzusehen und der Knopf sollte sich unten befinden.
+   Das Breadboard ist im Hochformat anzusehen und der Knopf befindet sich unten.
    Es gibt jeweils zwei Spieler die gegeneinander im Kopfrechnen antreten.
    Wurde der Knopf gedrückt so wird durch ein wellenartiges aufblinken der LED's den beiden Spielern Zeit gewährt.
    Als nächstes erscheint eine Zahl (von unten nach oben) beide müssen sich die Zahl merken.
