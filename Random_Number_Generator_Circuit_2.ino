@@ -12,7 +12,7 @@
 
    Diese Schaltung repräsentiert ein Mathe-Training.
    Das Breadboard ist im Hochformat anzusehen und der Knopf befindet sich unten.
-   Es gibt ein Spieler, der Kopfrechnen darf.
+   Es gibt ein Spieler, der das Kopfrechnen üben darf.
    Wurde der Knopf gedrückt so wird durch ein wellenartiges aufblinken der LED's dem Spieler Zeit gewährt.
    Dies passiert nach jedem Operator oder nach jeder Zahl.
    Als nächstes erscheint eine Zahl (von unten nach oben) die sich der Spieler merken muss.
