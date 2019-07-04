@@ -1,3 +1,34 @@
+/**
+  * Modul 242 - Mikroprozessoranwendungen realisieren
+  *
+  * LB 2
+  * Schaltung 1
+  *
+  * Stefan Ulrich
+  * IAMB16C
+  * 29-06-2019
+  *
+  * Diese Schaltung wurde von einem Beispiel übernommen.
+  *
+  * Diese Schaltung repräsentiert einen Timer.
+  *  
+  * Die Schaltung verfügt über ein Display, wo die Zeit wird.
+  * Durch das drücken am Knopf oben rechts wird das Programm neu gestartet, es handelt sich also um einen Reset-Knopf.
+  * Wird der Knopf unten rechts kurz oder lange gedrückt, so zählt der Timer um 10 Sekunden hoch.
+  * Bei fünfzig angekommen, springt die Zeit wieder zurück auf 0.
+  * Wird der Knopf unten in der Mitte kurz oder lange gedrückt, so zählt der Timer um eine ganze Minute hoch.
+  * Bei 60 Minuten angekommen springt dieser ebenfalls wieder auf die Minute 0.
+  * Wird der untere Knopf links kurz gedrückt, so startet der Timer, vorausgesetzt dass eine Zeit gesetzt wurde.
+  * Durch einen Knight-Rider Licht-Effekt am 'Multifunctional Shield' wird angezeigt, dass der Timer momentan herunter zählt.
+  * Während der Timer läuft, können keine Sekunden sowie Minuten hinzugefügt werden.
+  * Durch den Timer Start Knopf kann der Timer ebenfalls gestoppt werden.
+  * Im stoppenden Zustand können Minuten sowie Sekunden hinzugefügt werden.
+  * Um den Timer zurückzusetzen drückt man lange auf den Knopf unten Links.
+  * Der Timer wird nur zurückgesetzt, wenn der Timer vorerst angehalten wurde.
+  * Um den Timer in jedem Zustand zurückzusetzen drückt man einfach auf den Reset-Knopf oben rechts.
+  *
+  */
+
 #include <TimerOne.h>
 #include <Wire.h>
 #include <MultiFuncShield.h>
@@ -35,6 +66,7 @@ void loop() {
             seconds = 0;
             minutes = 0;
             MFS.write(minutes * 100 + seconds);
+            
             // reset blinking
             MFS.writeLeds(LED_ALL, OFF);
             MFS.writeLeds(LED_1, ON);
@@ -94,7 +126,7 @@ void loop() {
 
                 if (minutes == 0 && seconds == 0) {
                     // timer has reached 0, so sound the alarm
-                    MFS.beep(1, 50, 3); // beep 3 times, 500 milliseconds on / 500 off
+                    MFS.beep(1, 50, 3);
                     countDownMode = COUNTING_STOPPED;
                     MFS.write("End");
                     MFS.blinkDisplay(DIGIT_ALL, ON);
