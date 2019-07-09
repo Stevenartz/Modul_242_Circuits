@@ -99,6 +99,7 @@ void loop() {
                 velocity *= -1;
             }
 
+            // Selbst geschriebeer Code
             if (blinking == 0) {
                 MFS.writeLeds(LED_ALL, OFF);
                 MFS.writeLeds(LED_1, ON);
